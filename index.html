@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مشغل القنوات الذكي TV</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<style></style>
+
+</head>
+
+<body>
+    <!-- شاشة التحميل -->
+    <div id="loading" class="loading-screen">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <h3>جاري تحميل المشغل</h3>
+            <p id="loadingStatus">جاري تهيئة النظام...</p>
+        </div>
+    </div>
+
+    <!-- القائمة الجانبية -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2><i class="fas fa-tv"></i> TV Player</h2>
+            <button class="close-sidebar" id="closeSidebar">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="sidebar-menu">
+            <a href="#" class="menu-item active" data-section="player">
+                <i class="fas fa-play-circle"></i> المشغل
+            </a>
+            <a href="#" class="menu-item" data-section="channels">
+                <i class="fas fa-list"></i> القنوات
+            </a>
+            <a href="#" class="menu-item" data-section="favorites">
+                <i class="fas fa-star"></i> المفضلة
+            </a>
+            <a href="#" class="menu-item" data-section="settings">
+                <i class="fas fa-cog"></i> الإعدادات
+            </a>
+            <a href="#" class="menu-item" data-section="about">
+                <i class="fas fa-info-circle"></i> حول
+            </a>
+        </div>
+        
+        <div class="sidebar-footer">
+            <div class="user-info">
+                <div class="avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="user-details">
+                    <span class="username">مستخدم</span>
+                    <span class="user-status">مشاهد</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- المحتوى الرئيسي -->
+    <div class="main-container">
+        <!-- الهيدر -->
+        <header class="main-header">
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <div class="header-title">
+                <h1 id="pageTitle">المشغل الرئيسي</h1>
+            </div>
+            
+            <div class="header-actions">
+                <div class="theme-toggle">
+                    <button id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+                
+                <div class="header-search">
+                    <input type="text" id="globalSearch" placeholder="ابحث عن قناة...">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+        </header>
+
+        <!-- المحتوى الديناميكي -->
+        <main class="content" id="mainContent">
+            <!-- قسم المشغل -->
+            <section class="content-section active" id="playerSection">
+                <div class="player-container">
+                    <div class="video-player-card">
+                        <div class="video-header">
+                            <h3><i class="fas fa-play"></i> مشغل الفيديو</h3>
+                            <div class="video-quality">
+                                <select id="qualitySelect">
+                                    <option value="auto">جودة تلقائية</option>
+                                    <option value="1080">1080p</option>
+                                    <option value="720">720p</option>
+                                    <option value="480">480p</option>
+                                    <option value="360">360p</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="video-wrapper">
+                            <div class="video-overlay" id="videoOverlay">
+                                <div class="overlay-content">
+                                    <i class="fas fa-play-circle"></i>
+                                    <p>انقر للشغيل</p>
+                                </div>
+                            </div>
+                            <video id="mainVideoPlayer" playsinline>
+                                <source src="" type="video/mp4">
+                                متصفحك لا يدعم تشغيل الفيديو.
+                            </video>
+                            <div class="video-loading" id="videoLoading">
+                                <div class="loading-spinner"></div>
+                                <p>جاري التحميل...</p>
+                            </div>
+                        </div>
+                        
+                        <div class="video-controls">
+                            <div class="control-group">
+                                <button id="playPauseBtn" class="control-btn">
+                                    <i class="fas fa-play"></i>
+                                </button>
+                                <button id="muteBtn" class="control-btn">
+                                    <i class="fas fa-volume-up"></i>
+                                </button>
+                                <div class="volume-slider">
+                                    <input type="range" id="volumeSlider" min="0" max="100" value="100">
+                                </div>
+                                <button id="favoriteBtn" class="control-btn">
+                                    <i class="far fa-star"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="control-group">
+                                <span id="currentTime">00:00</span>
+                                <div class="progress-container">
+                                    <input type="range" id="progressBar" min="0" max="100" value="0">
+                                </div>
+                                <span id="durationTime">00:00</span>
+                            </div>
+                            
+                            <div class="control-group">
+                                <button id="pipBtn" class="control-btn" title="صورة داخل صورة">
+                                    <i class="fas fa-clone"></i>
+                                </button>
+                                <button id="speedBtn" class="control-btn">
+                                    <span>1x</span>
+                                </button>
+                                <button id="fullscreenBtn" class="control-btn">
+                                    <i class="fas fa-expand"></i>
+                                </button>
+                                <div class="channel-info">
+                                    <span id="currentChannelName">لم يتم اختيار قناة</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="player-sidebar">
+                        <div class="now-playing">
+                            <h4><i class="fas fa-broadcast-tower"></i> قيد التشغيل الآن</h4>
+                            <div class="channel-card active">
+                                <div class="channel-logo">
+                                    <i class="fas fa-tv"></i>
+                                </div>
+                                <div class="channel-details">
+                                    <h5 id="nowPlayingName">اختر قناة</h5>
+                                    <p id="nowPlayingCategory">-</p>
+                                </div>
+                                <button class="channel-action">
+                                    <i class="fas fa-info-circle"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="up-next">
+                            <h4><i class="fas fa-forward"></i> القنوات التالية</h4>
+                            <div class="next-channels" id="nextChannels">
+                                <!-- سيتم ملؤها بالجافاسكريبت -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- قسم القنوات -->
+            <section class="content-section" id="channelsSection">
+                <div class="section-header">
+                    <h2><i class="fas fa-satellite-dish"></i> جميع القنوات</h2>
+                    <div class="section-actions">
+                        <button class="action-btn" id="addChannelBtn">
+                            <i class="fas fa-plus"></i> إضافة قناة
+                        </button>
+                        <button class="action-btn" id="importM3UBtn">
+                            <i class="fas fa-file-import"></i> استيراد M3U
+                        </button>
+                        <button class="action-btn" id="exportChannelsBtn">
+                            <i class="fas fa-file-export"></i> تصدير
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="channels-controls">
+                    <div class="search-container">
+                        <input type="text" id="channelSearch" placeholder="ابحث عن قناة...">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    
+                    <div class="filter-controls">
+                        <div class="category-filter">
+                            <select id="categoryFilter">
+                                <option value="all">جميع الفئات</option>
+                                <option value="sports">رياضة</option>
+                                <option value="movies">أفلام</option>
+                                <option value="news">أخبار</option>
+                                <option value="entertainment">ترفيه</option>
+                                <option value="kids">أطفال</option>
+                                <option value="music">موسيقى</option>
+                                <option value="educational">تعليمي</option>
+                            </select>
+                        </div>
+                        
+                        <div class="sort-controls">
+                            <select id="sortChannels">
+                                <option value="name-asc">الاسم من أ إلى ي</option>
+                                <option value="name-desc">الاسم من ي إلى أ</option>
+                                <option value="category">حسب الفئة</option>
+                                <option value="favorites">المفضلة أولاً</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="channels-grid" id="channelsGrid">
+                    <!-- سيتم ملؤها بالجافاسكريبت -->
+                </div>
+                
+                <div class="pagination" id="channelsPagination">
+                    <!-- سيتم ملؤها بالجافاسكريبت -->
+                </div>
+            </section>
+
+            <!-- قسم المفضلة -->
+            <section class="content-section" id="favoritesSection">
+                <div class="section-header">
+                    <h2><i class="fas fa-star"></i> القنوات المفضلة</h2>
+                    <p class="section-subtitle">قنواتك المفضلة للوصول السريع</p>
+                </div>
+                
+                <div class="favorites-container" id="favoritesContainer">
+                    <!-- سيتم ملؤها بالجافاسكريبت -->
+                </div>
+            </section>
+
+            <!-- قسم الإعدادات -->
+            <section class="content-section" id="settingsSection">
+                <div class="section-header">
+                    <h2><i class="fas fa-cog"></i> الإعدادات</h2>
+                </div>
+                
+                <div class="settings-container">
+                    <div class="settings-card">
+                        <h4><i class="fas fa-play-circle"></i> إعدادات التشغيل</h4>
+                        <div class="setting-item">
+                            <label>التشغيل التلقائي</label>
+                            <label class="switch">
+                                <input type="checkbox" id="autoPlaySetting" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label>التكرار (Loop)</label>
+                            <label class="switch">
+                                <input type="checkbox" id="loopSetting">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label>حفظ آخر قناة شاهدتها</label>
+                            <label class="switch">
+                                <input type="checkbox" id="saveLastChannel" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-card">
+                        <h4><i class="fas fa-eye"></i> إعدادات العرض</h4>
+                        <div class="setting-item">
+                            <label>الوضع الليلي</label>
+                            <label class="switch">
+                                <input type="checkbox" id="darkModeSetting">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label>عدد القنوات في الصفحة</label>
+                            <select id="channelsPerPage">
+                                <option value="12">12</option>
+                                <option value="24">24</option>
+                                <option value="36">36</option>
+                                <option value="48">48</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="settings-card">
+                        <h4><i class="fas fa-database"></i> إدارة البيانات</h4>
+                        <div class="setting-item">
+                            <button class="setting-action" id="clearCacheBtn">
+                                <i class="fas fa-trash"></i> مسح الذاكرة المؤقتة
+                            </button>
+                        </div>
+                        <div class="setting-item">
+                            <button class="setting-action" id="resetSettingsBtn">
+                                <i class="fas fa-redo"></i> إعادة ضبط الإعدادات
+                            </button>
+                        </div>
+                        <div class="setting-item">
+                            <button class="setting-action" id="exportDataBtn">
+                                <i class="fas fa-download"></i> تصدير البيانات
+                            </button>
+                        </div>
+                        <div class="setting-item">
+                            <button class="setting-action" id="importDataBtn">
+                                <i class="fas fa-upload"></i> استيراد البيانات
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- قسم حول -->
+            <section class="content-section" id="aboutSection">
+                <div class="about-container">
+                    <div class="about-header">
+                        <div class="app-logo">
+                            <i class="fas fa-tv"></i>
+                        </div>
+                        <h2>مشغل القنوات الذكي</h2>
+                        <p class="version">الإصدار 2.0</p>
+                    </div>
+                    
+                    <div class="about-content">
+                        <div class="features-grid">
+                            <div class="feature-card">
+                                <i class="fas fa-play-circle"></i>
+                                <h4>مشغل متطور</h4>
+                                <p>مشغل فيديو متكامل مع جميع خصائص التحكم</p>
+                            </div>
+                            <div class="feature-card">
+                                <i class="fas fa-satellite-dish"></i>
+                                <h4>دعم M3U</h4>
+                                <p>يدعم جميع تنسيقات قوائم M3U و M3U8</p>
+                            </div>
+                            <div class="feature-card">
+                                <i class="fas fa-star"></i>
+                                <h4>المفضلة</h4>
+                                <p>إضافة القنوات المفضلة للوصول السريع</p>
+                            </div>
+                            <div class="feature-card">
+                                <i class="fas fa-cog"></i>
+                                <h4>إعدادات متقدمة</h4>
+                                <p>خيارات تخصيص متعددة لتجربة مشاهدة أفضل</p>
+                            </div>
+                        </div>
+                        
+                        <div class="about-info">
+                            <h4><i class="fas fa-info-circle"></i> معلومات التقنية</h4>
+                            <p>هذا المشغل مبني باستخدام:</p>
+                            <ul>
+                                <li>HTML5, CSS3, JavaScript</li>
+                                <li>Video.js API</li>
+                                <li>LocalStorage لحفظ البيانات</li>
+                                <li>تصميم متجاوب لجميع الأجهزة</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="disclaimer">
+                            <h4><i class="fas fa-exclamation-triangle"></i> ملاحظة هامة</h4>
+                            <p>هذا المشروع لأغراض تعليمية وتجريبية فقط. يرجى احترام حقوق النشر وقوانين البلد الذي تعيش فيه عند استخدام هذا المشغل.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- المودالات -->
+    <div class="modal" id="addChannelModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-plus"></i> إضافة قناة جديدة</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="channelForm">
+                    <div class="form-group">
+                        <label>اسم القناة</label>
+                        <input type="text" id="channelName" required placeholder="أدخل اسم القناة">
+                    </div>
+                    <div class="form-group">
+                        <label>رابط القناة</label>
+                        <input type="url" id="channelUrl" required placeholder="http://example.com/stream.m3u8">
+                    </div>
+                    <div class="form-group">
+                        <label>فئة القناة</label>
+                        <select id="channelCategory">
+                            <option value="general">عام</option>
+                            <option value="sports">رياضة</option>
+                            <option value="movies">أفلام</option>
+                            <option value="news">أخبار</option>
+                            <option value="entertainment">ترفيه</option>
+                            <option value="kids">أطفال</option>
+                            <option value="music">موسيقى</option>
+                            <option value="educational">تعليمي</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>صورة القناة (اختياري)</label>
+                        <input type="url" id="channelLogo" placeholder="http://example.com/logo.png">
+                    </div>
+                    <div class="form-group">
+                        <label>وصف القناة (اختياري)</label>
+                        <textarea id="channelDescription" rows="3" placeholder="وصف مختصر للقناة"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary close-modal">إلغاء</button>
+                <button class="btn-primary" id="saveChannelBtn">حفظ القناة</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- استيراد M3U -->
+    <div class="modal" id="importM3UModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-file-import"></i> استيراد قائمة M3U</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="import-options">
+                    <div class="import-option active" data-type="url">
+                        <i class="fas fa-link"></i>
+                        <span>من رابط</span>
+                    </div>
+                    <div class="import-option" data-type="file">
+                        <i class="fas fa-file-upload"></i>
+                        <span>من ملف</span>
+                    </div>
+                    <div class="import-option" data-type="text">
+                        <i class="fas fa-paste"></i>
+                        <span>لصق نصي</span>
+                    </div>
+                </div>
+                
+                <div class="import-content">
+                    <div class="import-panel active" id="urlPanel">
+                        <div class="form-group">
+                            <label>رابط قائمة M3U</label>
+                            <input type="url" id="m3uUrl" placeholder="https://example.com/playlist.m3u">
+                        </div>
+                    </div>
+                    
+                    <div class="import-panel" id="filePanel">
+                        <div class="file-upload">
+                            <input type="file" id="m3uFile" accept=".m3u,.m3u8">
+                            <div class="upload-area">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>انقر لاختيار ملف أو اسحب وأفلت</p>
+                                <span>الملفات المسموحة: M3U, M3U8</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="import-panel" id="textPanel">
+                        <div class="form-group">
+                            <label>الصق محتوى M3U هنا</label>
+                            <textarea id="m3uText" rows="10" placeholder="#EXTM3U
+#EXTINF:-1,اسم القناة
+http://example.com/stream.m3u8"></textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="import-preview" id="importPreview">
+                    <!-- سيتم عرض معاينة القنوات هنا -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary close-modal">إلغاء</button>
+                <button class="btn-primary" id="importM3UBtn">استيراد</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- رسائل توجيهية -->
+    <div id="toastContainer"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
