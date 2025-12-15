@@ -420,85 +420,38 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // بيانات القنوات من M3U
     const m3uContent = `#EXTM3U
-#EXTINF:-1,mbc
-https://tgn.bozztv.com/eshgtv-trn09/ga-mchannel1/index.m3u8
-#EXTINF:-1,mbc2
-https://tgn.bozztv.com/eshgtv-trn09/ga-mchannel2/index.m3u8
-#EXTINF:-1,mbc3
-https://tgn.bozztv.com/eshgtv-trn09/ga-mchannel3/index.m3u8
-#EXTINF:-1,mbc4
-https://tgn.bozztv.com/eshgtv-trn09/ga-mchannel4/index.m3u8
-#EXTINF:-1,mbc5
-https://tgn.bozztv.com/eshgtv-trn09/ga-mchannel5/index.m3u8
-#EXTINF:-1,mbc max
-https://tgn.bozztv.com/eshgtv-trn09/ga-mchannelmax/index.m3u8
-
-#EXTINF:60,mbc
-https://shls-live-enc.edgenextcdn.net/out/v1/0965e4d7deae49179172426cbfb3bc5e/index.m3u8
-#EXTINF:61,mbc 3 USA
-https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-3-usa/5d58265a862a476dc7f97694addb5ded/index.m3u8
-#EXTINF:61,mbc 4
-https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-4/24f134f1cd63db9346439e96b86ca6ed/index.m3u8
-#EXTINF:61,mbc 5
-https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-5/ee6b000cee0629411b666ab26cb13e9b/index.m3u8
-#EXTINF:60,mbc Aflam
-https://shls-live-enc.edgenextcdn.net/out/v1/0044dd4b001a466c941ad77b04a574a2/index.m3u8
-#EXTINF:61,mbc Bollywood
-https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-bollywood/546eb40d7dcf9a209255dd2496903764/index.m3u8
-#EXTINF:60,mbc Drama
-https://mbc1-enc.edgenextcdn.net/out/v1/b0b3a0e6750d4408bb86d703d5feffd1/index.m3u8
-#EXTINF:60,mbc Drama Masr
-https://shls-live-enc.edgenextcdn.net/out/v1/08eca926a78a41339b8010c882410307/index.m3u8
-#EXTINF:61,mbc Drama USA
-https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-drama-usa/ea2f5db904aff224b7066e59c7f585a2/index.m3u8
-#EXTINF:60,mbc FM
-https://dbbv9umqcd7cs.cloudfront.net/out/v1/db15b75c3cc0400c91961468d6a232ac/index.m3u8
-#EXTINF:60,mbc Loud
-https://d2lfa0y84k5bwn.cloudfront.net/out/v1/86dd4506a70c4d7fb35e2ab50296d9a3/index.m3u8
-#EXTINF:60,mbc Masr 1
-https://mbc1-enc.edgenextcdn.net/out/v1/d5036cabf11e45bf9d0db410ca135c18/index.m3u8
-#EXTINF:61,mbc Masr 2
-https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-masr-2/754931856515075b0aabf0e583495c68/index.m3u8
-#EXTINF:60,mbc masr Drama
-https://shls-live-enc.edgenextcdn.net/out/v1/08eca926a78a41339b8010c882410307/index.m3u8
-#EXTINF:61,mbc Masr USA
-https://shd-gcp-live.edgenextcdn.net/live/bitmovin-mbc-masr-usa/cd8d40acdab28aac0582faa3bd3983f1/index.m3u8
-#EXTINF:60,mbc masr2
-https://shls-masr-ak.akamaized.net/out/v1/d5036cabf11e45bf9d0db410ca135c18/index.m3u8
-#EXTINF:60,mbc Movies
-https://shls-live-enc.edgenextcdn.net/out/v1/90143f040feb40589d18c57863d9e829/index.m3u8
-#EXTINF:60,mbc Movies Action
-https://shls-live-enc.edgenextcdn.net/out/v1/46079e838e65490c8299f902a7731168/index.m3u8
-#EXTINF:60,mbc Movies Thriller
-https://shls-live-enc.edgenextcdn.net/out/v1/f6d718e841f8442f8374de47f18c93a7/index.m3u8
-#EXTINF:16,MBC_1
-http://154.58.202.18:8080/mbc1/index.m3u8
-#EXTINF:40,MBC_4
-http://154.58.202.18:8080/mbc4/index.m3u8
-#EXTINF:30,MBC_Action
-http://154.58.202.18:8080/mbc2/index.m3u8
-#EXTINF:11,Al Arabiya
-http://176.65.146.100:8033/play/a06a/index.m3u8
-#EXTINF:11,Al Hadath
-http://176.65.146.100:8033/play/a069/index.m3u8
-#EXTINF:11,MBC 2
-http://176.65.146.100:8033/play/a06f/index.m3u8
-#EXTINF:0,MBC 3
-http://176.65.146.100:8033/play/a06d/index.m3u8
-#EXTINF:0,MBC 4
-http://176.65.146.100:8033/play/a06c/index.m3u8
-#EXTINF:0,MBC 5
-http://176.65.146.100:8033/play/a06b/index.m3u8
-#EXTINF:0,MBC Action
-http://176.65.146.100:8033/play/a06e/index.m3u8
-#EXTINF:0,MBC Bollywood
-http://176.65.146.100:8033/play/a06h/index.m3u8
-#EXTINF:0,MBC Drama
-http://176.65.146.100:8033/play/a06i/index.m3u8
-#EXTINF:0,MBC MAX
-http://176.65.146.100:8033/play/a06g/index.m3u8
-#EXTINF:0,Wanasah
-http://176.65.146.100:8033/play/a06k/index.m3u8
+#EXTINF:-1 tvg-id="AlArabyTV2.qa@SD" tvg-logo="https://i.imgur.com/Gp5mNea.png" group-title="News",Alaraby 2 TV (1080p)
+https://alaraby.cdn.octivid.com/alaraby2n/smil:alaraby2n.stream.smil/chunklist.m3u8
+#EXTINF:-1 tvg-id="AlArabyTV.qa@SD" tvg-logo="https://i.imgur.com/YMqWEe4.png" group-title="News",Alaraby TV (1080p)
+https://alaraby.cdn.octivid.com/alaraby/smil:alaraby.stream.smil/chunklist.m3u8
+#EXTINF:-1 tvg-id="AlJazeera.qa@Arabic" tvg-logo="https://i.imgur.com/7bRVpnu.png" group-title="News",Al Jazeera (1080p)
+https://live-hls-apps-aja-fa.getaj.net/AJA/index.m3u8
+#EXTINF:-1 tvg-id="AlJazeera.qa@English" tvg-logo="https://i.imgur.com/7bRVpnu.png" group-title="News",Al Jazeera English (1080p)
+https://live-hls-apps-aje-fa.getaj.net/AJE/index.m3u8
+#EXTINF:-1 tvg-id="AlJazeeraDocumentary.qa@SD" tvg-logo="https://i.imgur.com/5dNJlLo.png" group-title="Documentary",Al Jazeera Documentary (1080p)
+https://live-hls-apps-ajd-fa.getaj.net/AJD/index.m3u8
+#EXTINF:-1 tvg-id="AlJazeeraMubasher24.qa@SD" tvg-logo="https://i.imgur.com/LMCcIZ2.png" group-title="News",Al Jazeera Mubasher 24 (1080p)
+https://live-hls-apps-ajm24-fa.getaj.net/AJM24/index.m3u8
+#EXTINF:-1 tvg-id="AlJazeeraMubasher.qa@SD" tvg-logo="https://i.imgur.com/X80DQvF.png" group-title="News",Al Jazeera Mubasher (1080p)
+https://live-hls-apps-ajm-fa.getaj.net/AJM/index.m3u8
+#EXTINF:-1 tvg-id="AlJazeeraMubasherBroadcast2.qa@SD" tvg-logo="https://i.imgur.com/nJmi6G6.png" group-title="News",Al Jazeera Mubasher Broadcast 2 (1080p)
+https://live-hls-apps-ajm2-fa.getaj.net/AJM2/index.m3u8
+#EXTINF:-1 tvg-id="AlkassFour.qa@HD" tvg-logo="https://i.imgur.com/iDL65Wu.png" group-title="Sports",Alkass Four HD (720p)
+https://streamer3.qna.org.qa/148164621_live/148164621_296.sdp/playlist.m3u8
+#EXTINF:-1 tvg-id="AlkassThree.qa@SD" tvg-logo="https://i.imgur.com/d57BdFh.png" group-title="Sports",Alkass Three (720p)
+https://streamer2.qna.org.qa/148161470_live/148161470_296.sdp/playlist.m3u8
+#EXTINF:-1 tvg-id="AlkassTwo.qa@SD" tvg-logo="https://i.imgur.com/8w61kFX.png" group-title="Sports",Alkass Two (720p)
+https://streamer3.qna.org.qa/148164528_live/148164528_296.sdp/playlist.m3u8
+#EXTINF:-1 tvg-id="AlMaarefTV.qa@SD" tvg-logo="https://i.imgur.com/QFnztgo.png" group-title="Religious",Al Maaref (350p)
+https://672a3a5c8e335.streamlock.net/AlMaaref/smil:almaareflive.smil/playlist.m3u8
+#EXTINF:-1 tvg-id="AlRayyanOldTV.qa@SD" tvg-logo="https://i.imgur.com/4qB5iN0.png" group-title="General",Al Rayyan Al Qadeem (1080p)
+https://alrayyancdn.vidgyor.com/pub-nooldraybinbdh/liveabr/playlist_dvr.m3u8
+#EXTINF:-1 tvg-id="AlRayyanTV.qa@SD" tvg-logo="https://i.imgur.com/Ts3RjTV.png" group-title="General",Al Rayyan (1080p)
+https://alrayyancdn.vidgyor.com/pub-noalrayy3pwz0l/liveabr/playlist_dvr.m3u8
+#EXTINF:-1 tvg-id="QatarTelevision2.qa@SD" tvg-logo="https://i.imgur.com/iWJxDUm.png" group-title="General",Qatar Television 2 (1080p)
+https://live.kwikmotion.com/qtv2live/qtv2.smil/playlist.m3u8
+#EXTINF:-1 tvg-id="QatarTelevision.qa@SD" tvg-logo="https://i.imgur.com/N5RB4sp.png" group-title="General",Qatar Television (1080p)
+https://live.kwikmotion.com/qtv1live/qtv1.smil/playlist.m3u8
 `;
     
     // تحليل محتوى M3U
